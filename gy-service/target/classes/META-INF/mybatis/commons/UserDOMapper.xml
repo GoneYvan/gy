@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.commons.dao.UserDOMapper" >
+
+  <resultMap id="BaseResultMap" type="com.gy.commons.domains.UserDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+    <result column="update_at" property="updateAt" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, create_at, update_at, status, version, name, phone, gender, age, birthday
+  </sql>
+
+  <sql id="Where_Condition">
+    <where>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <update id="deleteById" parameterType="com.gy.base.BaseQuery">
+    UPDATE users SET status=0,version=version+1
+    where id = #{id,jdbcType=INTEGER} AND version = #{version,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insert" parameterType="com.gy.commons.domains.UserDO"
+          useGeneratedKeys="true" keyProperty="id">
+    insert into users (name, phone, gender,
+    age, birthday)
+    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR},
+    #{age,jdbcType=TINYINT}, #{birthday,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="update" parameterType="com.gy.commons.domains.UserDO" >
+    update users
+    <set >
+        version=version+1,
+        update_at = now(),
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} AND status=1 AND version = #{version,jdbcType=INTEGER}
+  </update>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{id,jdbcType=INTEGER} AND status = 1
+  </select>
+
+  <select id="listByQuery" resultMap="BaseResultMap" parameterType="com.gy.commons.queryObjects.UserQuery" >
+    select
+    <include refid="Base_Column_List" />
+    from users
+    <include refid="Where_Condition" />
+    ORDER BY id DESC
+    LIMIT #{start,jdbcType=INTEGER},#{stop,jdbcType=INTEGER}
+  </select>
+
+</mapper>

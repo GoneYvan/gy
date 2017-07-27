@@ -1,0 +1,11 @@
+com\gy\base\ApplicationContextManager.class
+com\gy\commons\domains\UserDO.class
+com\gy\commons\services\CommonServiceFactory.class
+com\gy\commons\services\UserService.class
+com\gy\base\BaseQuery.class
+com\gy\commons\queryObjects\UserQuery.class
+com\gy\base\BasePagination.class
+com\gy\base\ServiceLocator.class
+com\gy\commons\dao\UserDOMapper.class
+com\gy\commons\dao\impl\UserDOMapperImpl.class
+com\gy\base\BaseDO.class
