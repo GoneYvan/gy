@@ -26,7 +26,7 @@ public class UserService {
      * @return
      */
     public Integer addUser(UserDO userDO){
-        if(CommonCheckFactory.checkObjectNull(userDO)){
+        if(userDO == null){
             return 0;
         }else{
             return userDOMapper.insert(userDO);
@@ -40,7 +40,7 @@ public class UserService {
      * @return
      */
     public boolean deleteUser(Integer id, Integer version){
-        if(CommonCheckFactory.checkObjectNull(id) || CommonCheckFactory.checkObjectNull(version)){
+        if(CommonCheckFactory.checkObjectNull(id, version)){
             return false;
         }
         return CommonCheckFactory.checkSuccess(userDOMapper.deleteById(new BaseQuery(id, version)));
@@ -52,8 +52,7 @@ public class UserService {
      * @return
      */
     public boolean updateUser(UserDO userDO){
-        if(CommonCheckFactory.checkObjectNull(userDO)
-                || CommonCheckFactory.checkObjectNull(userDO.getId())){
+        if(CommonCheckFactory.checkObjectNull(userDO, userDO.getId())){
             return false;
         }
         return CommonCheckFactory.checkSuccess(userDOMapper.update(userDO));
@@ -65,7 +64,7 @@ public class UserService {
      * @return
      */
     public UserDO getById(Integer id){
-        if(CommonCheckFactory.checkObjectNull(id)){
+        if(id == null){
             return null;
         }
         return userDOMapper.getById(id);

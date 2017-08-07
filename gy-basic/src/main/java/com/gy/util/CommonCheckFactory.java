@@ -19,12 +19,17 @@ public class CommonCheckFactory {
 
     /**
      * 判断对象是否为空
-     * @param object
+     * @param objects
      * @return true 对象为空值
      */
-    public static boolean checkObjectNull(Object object){
-        if(object == null){
+    public static boolean checkObjectNull(Object... objects){
+        if(objects == null){
             return true;
+        }
+        for(Object o : objects){
+            if(o == null){
+                return true;
+            }
         }
         return false;
     }

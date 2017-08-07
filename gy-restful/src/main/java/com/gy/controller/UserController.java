@@ -27,8 +27,7 @@ public class UserController {
      */
     @RequestMapping("/add")
     public JSONResponse addUser(UserDO userDO){
-        if(CommonCheckFactory.checkObjectNull(userDO)
-            || CommonCheckFactory.checkObjectNull(userDO.getName())){
+        if(CommonCheckFactory.checkObjectNull(userDO, userDO.getName())){
             return JSONResponseUtil.paramNull();
         }
         Integer id = userService.addUser(userDO);
@@ -45,11 +44,11 @@ public class UserController {
      */
     @RequestMapping("/get")
     public JSONResponse getUser(Integer id){
-        if(CommonCheckFactory.checkObjectNull(id)){
+        if(id == null){
             return JSONResponseUtil.paramNull();
         }
         UserDO userDO = userService.getById(id);
-        if(CommonCheckFactory.checkObjectNull(userDO)){
+        if(userDO == null){
             return JSONResponseUtil.fail(null);
         }
         return JSONResponseUtil.success(userDO);
@@ -62,13 +61,13 @@ public class UserController {
      */
     @RequestMapping("/update")
     public JSONResponse updateUser(UserDO userDO){
-        if(CommonCheckFactory.checkObjectNull(userDO)){
+        if(userDO == null){
             return JSONResponseUtil.paramNull();
         }
-        if(CommonCheckFactory.checkObjectNull(userDO.getId())){
+        if(userDO.getId() == null){
             return JSONResponseUtil.paramError(4000, "请求ID为空");
         }
-        if(CommonCheckFactory.checkObjectNull(userDO.getVersion())){
+        if(userDO.getVersion() == null){
             return JSONResponseUtil.paramError(4000, "请求版本数据为空");
         }
         if(userService.updateUser(userDO)){
@@ -85,10 +84,10 @@ public class UserController {
      */
     @RequestMapping("/delete")
     public JSONResponse deleteUser(@Param("id") Integer id, @Param("version") Integer version){
-        if(CommonCheckFactory.checkObjectNull(id)){
+        if(id == null){
             return JSONResponseUtil.paramError(4000, "请求ID为空");
         }
-        if(CommonCheckFactory.checkObjectNull(version)){
+        if(version == null){
             return JSONResponseUtil.paramError(4000, "请求版本数据为空");
         }
         if(userService.deleteUser(id, version)){
