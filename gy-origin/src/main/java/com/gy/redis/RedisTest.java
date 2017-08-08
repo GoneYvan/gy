@@ -124,7 +124,7 @@ public class RedisTest {
 //        System.out.println(RedisFactory.countZSet("zset", null, null));
 //        System.out.println(RedisFactory.countZSet("zset", 1.0, 1.5));
 
-        System.out.println(RedisFactory.scoreZSet("zset", "zset4"));
+//        System.out.println(RedisFactory.scoreZSet("zset", "zset4"));
 
 //        RedisFactory.flushDB();
 
