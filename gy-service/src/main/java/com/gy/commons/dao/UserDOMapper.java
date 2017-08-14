@@ -14,6 +14,7 @@ public interface UserDOMapper {
     Integer update(UserDO record);
 
     UserDO getById(Integer id);
+    UserDO getByAccount(String account);
 
     List<UserDO> listByQuery(UserQuery record);
 

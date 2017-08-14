@@ -5,6 +5,11 @@ package com.gy.util;
  */
 public class JSONResponseUtil {
 
+    public static Integer SUCCESS = 2000; // 请求成功
+    public static Integer PARAM_NULL = 4000; // 存在空参数
+    public static Integer PARAM_ERROR = 4001; // 参数错误
+    public static Integer FAIL = 5000; // 请求失败
+
     /**
      * 请求成功
      * @param o 成功返回参数
@@ -12,7 +17,7 @@ public class JSONResponseUtil {
      */
     public static JSONResponse success(Object o){
         JSONResponse response = new JSONResponse();
-        response.setCode(2000);
+        response.setCode(SUCCESS);
         response.setMsg("请求成功");
         response.setData(o);
         return response;
@@ -25,7 +30,7 @@ public class JSONResponseUtil {
      */
     public static JSONResponse fail(Object o){
         JSONResponse response = new JSONResponse();
-        response.setCode(5000);
+        response.setCode(FAIL);
         response.setMsg("请求失败");
         response.setData(o);
         return response;
@@ -37,8 +42,8 @@ public class JSONResponseUtil {
      */
     public static JSONResponse paramNull(){
         JSONResponse response = new JSONResponse();
-        response.setCode(4000);
-        response.setMsg("空请求参数");
+        response.setCode(PARAM_NULL);
+        response.setMsg("存在空请求参数");
         return response;
     }
 
@@ -48,7 +53,7 @@ public class JSONResponseUtil {
      * @param msg
      * @return
      */
-    public static JSONResponse paramError(Integer code, String msg){
+    public static JSONResponse error(Integer code, String msg){
         JSONResponse response = new JSONResponse();
         response.setCode(code);
         response.setMsg(msg);

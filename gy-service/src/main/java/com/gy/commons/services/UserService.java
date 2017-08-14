@@ -52,7 +52,7 @@ public class UserService {
      * @return
      */
     public boolean updateUser(UserDO userDO){
-        if(CommonCheckFactory.checkObjectNull(userDO, userDO.getId())){
+        if(CommonCheckFactory.checkObjectNull(userDO, userDO.getId(), userDO.getVersion())){
             return false;
         }
         return CommonCheckFactory.checkSuccess(userDOMapper.update(userDO));
@@ -69,6 +69,14 @@ public class UserService {
         }
         return userDOMapper.getById(id);
     }
+
+    public UserDO getByAccount(String account){
+        if(account == null){
+            return null;
+        }
+        return userDOMapper.getByAccount(account);
+    }
+
 
     /**
      * 根据条件检索用户信息

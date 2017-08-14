@@ -6,9 +6,11 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
     <result column="update_at" property="updateAt" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="version" property="version" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
@@ -16,7 +18,8 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, create_at, update_at, status, version, name, phone, gender, age, birthday
+    id, create_at, update_at, status, version, name, account, password,
+    phone, gender, age, birthday
   </sql>
 
   <sql id="Where_Condition">
@@ -34,10 +37,13 @@
 
   <insert id="insert" parameterType="com.gy.commons.domains.UserDO"
           useGeneratedKeys="true" keyProperty="id">
-    insert into users (name, phone, gender,
-    age, birthday)
-    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR},
-    #{age,jdbcType=TINYINT}, #{birthday,jdbcType=VARCHAR})
+    insert into users (name, account, password,
+    phone, gender, age,
+    birthday)
+    values (
+    #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+    #{birthday,jdbcType=VARCHAR})
   </insert>
 
   <update id="update" parameterType="com.gy.commons.domains.UserDO" >
@@ -47,6 +53,12 @@
         update_at = now(),
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
@@ -69,6 +81,13 @@
     <include refid="Base_Column_List" />
     from users
     where id = #{id,jdbcType=INTEGER} AND status = 1
+  </select>
+
+  <select id="getByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where account = #{account,jdbcType=VARCHAR} AND status = 1
   </select>
 
   <select id="listByQuery" resultMap="BaseResultMap" parameterType="com.gy.commons.queryObjects.UserQuery" >

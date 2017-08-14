@@ -39,4 +39,9 @@ public class UserDOMapperImpl extends SqlSessionDaoSupport implements UserDOMapp
     public List<UserDO> listByQuery(UserQuery record) {
         return getSqlSession().selectList(namespace + "listByQuery", record);
     }
+
+    @Override
+    public UserDO getByAccount(String account) {
+        return getSqlSession().selectOne(namespace + "getByAccount", account);
+    }
 }

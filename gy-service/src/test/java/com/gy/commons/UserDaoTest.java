@@ -56,5 +56,8 @@ public class UserDaoTest extends BaseTest {
 
         userDOMapper.deleteById(new BaseQuery(id, userDO.getVersion()));
 
+//        UserDO userDO = userDOMapper.getByAccount("admin");
+//        Assert.assertNotNull(userDO);
+
     }
 }

@@ -7,12 +7,12 @@ CREATE TABLE `users` (
   `version` INT DEFAULT 0 COMMENT '数据版本',
 
   `name` VARCHAR(20) NOT NULL COMMENT '姓名',
+  `account` VARCHAR(20) NOT NULL COMMENT '账号',
+  `password` VARCHAR(50) NOT NULL COMMENT '密码',
+
   `phone` VARCHAR(15) COMMENT '联系方式',
   `gender` VARCHAR(1) DEFAULT 'G' COMMENT '性别(G男M女)',
   `age` TINYINT(3) COMMENT '年龄',
   `birthday` VARCHAR(10) COMMENT '生日',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`), INDEX (`account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
-
-INSERT INTO users (name, phone, age, birthday) VALUES ('张三','13311111111',20,NULL),('李四','14522222222',21,NULL),('王五','16733333333',22,NULL);
-SELECT * from users;
