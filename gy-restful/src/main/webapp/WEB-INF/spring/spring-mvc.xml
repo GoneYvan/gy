@@ -8,7 +8,12 @@
     <!-- 初始化配置 -->
     <bean class="com.gy.base.InitialRedisData" />
 
-    <!--<import resource="spring-authorization.xml"/>-->
+    <!-- 引入定时调度配置 -->
+    <!--<import resource="spring-quartz.xml" />-->
+    <!--<import resource="spring-task.xml"/>-->
+
+    <!-- 引入权限模块 -->
+    <import resource="spring-authorization.xml"/>
 
     <!--启用spring的一些annotation -->
     <context:annotation-config/>
@@ -60,13 +65,5 @@
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler />
 
-    <!-- 配置拦截器 -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/"/>
-            <mvc:mapping path="/user/**"/>
-            <bean class="com.gy.base.BaseUserInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
 
 </beans>
