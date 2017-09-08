@@ -2,29 +2,31 @@ package com.gy.commons.services;
 
 import com.gy.base.BaseQuery;
 import com.gy.commons.dao.UserDOMapper;
-import com.gy.commons.dao.impl.UserDOMapperImpl;
 import com.gy.commons.domains.UserDO;
 import com.gy.commons.queryObjects.UserQuery;
 import com.gy.util.CommonCheckFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/27 0027.
  */
+@Service
 public class UserService {
 
+    @Resource
     private UserDOMapper userDOMapper;
-
-    public void setUserDOMapper(UserDOMapperImpl userDOMapper) {
-        this.userDOMapper = userDOMapper;
-    }
 
     /**
      * 新增一个用户
      * @param userDO
      * @return
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public Integer addUser(UserDO userDO){
         if(userDO == null){
             return 0;
